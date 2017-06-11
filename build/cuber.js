@@ -11631,6 +11631,7 @@ ERNO.Cube = function( parameters ){
 			this.keyboardControlsEnabled ){
 
 				var key = String.fromCharCode( event.which );
+                console.log(key);
 				if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
 
 		}

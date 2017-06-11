@@ -6,21 +6,21 @@ var presets = {
 
 			this.position.y = -2000;
 			new TWEEN.Tween( this.position )
-				.to({ 
+				.to({
 					y: 0
 				}, 1000 * 2 )
 				.easing( TWEEN.Easing.Quartic.Out )
 				.start();
 			this.rotation.set(
-				
+
 				( 180 ).degreesToRadians(),
 				( 180 ).degreesToRadians(),
 				(  20 ).degreesToRadians()
 			);
 			new TWEEN.Tween( this.rotation )
-				.to({ 
+				.to({
 
-					x: (  25 ).degreesToRadians(), 
+					x: (  25 ).degreesToRadians(),
 					y: ( -30 ).degreesToRadians(),
 					z: 0
 
@@ -34,11 +34,11 @@ var presets = {
 				.start();
 			this.isReady = false;
 
-			
+
 			//  And we want each Cubelet to begin in an exploded position and tween inward.
 
 			this.cubelets.forEach( function( cubelet ){
-	
+
 
 				//  We want to start with each Cubelet exploded out away from the Cube center.
 				//  We're reusing the x, y, and z we created far up above to handle Cubelet positions.
@@ -68,16 +68,16 @@ var presets = {
 						x: 0,
 						y: 0,
 						z: 0
-					
+
 					}, 1000 )
-					.delay( delay ) 
-					.easing( TWEEN.Easing.Quartic.Out )	
+					.delay( delay )
+					.easing( TWEEN.Easing.Quartic.Out )
 					.onComplete( function(){
 
 						cubelet.isTweening = false;
 					})
 					.start();
-				
+
 				cubelet.isTweening = true;
 			});
 
@@ -118,16 +118,16 @@ var presets = {
 			cube.hideWireframes();
 			cube.setOpacity();
 			//updateControls( cube );
-		
+
 		// }, 1 );
 	},
 	presetLogo: function(){
 		var cube = this;
 
 		this.isReady = false
-		this.presetText()			
+		this.presetText()
 		new TWEEN.Tween( cube.rotation )
-		.to({ 
+		.to({
 			x: 0,
 			y: ( -45 ).degreesToRadians(),
 			z: 0
@@ -142,25 +142,25 @@ var presets = {
 		.start()
 	},
 	presetTextAnimate: function(){//  Specifically for Monica!
-		var 
+		var
 		delay = 1,//1000 * 2,
 		twistDurationScaled = [ (20+90).absolute().scale( 0, 90, 0, cube.twistDuration ), 250 ].maximum()
 		_this = this
 
 		cube.shuffleMethod = cube.ALL_SLICES
 		presetHeroic( virgin )
-		setTimeout( function(){ 
+		setTimeout( function(){
 
 			_this.twist( 'E', 20 )
 		}, delay )
-		setTimeout( function(){ 
+		setTimeout( function(){
 
 			_this.twist( 'd', 20 )
 			//$('body').css('background-color', '#000')
 		}, delay + 1000 )
 		setTimeout( function(){
 
-			_this.twist( 'D', 20 + 90 )		
+			_this.twist( 'D', 20 + 90 )
 			_this.isRotating = true
 		}, delay + 1000 * 2 )
 		setTimeout( function(){
@@ -178,8 +178,8 @@ var presets = {
 
 			excluded = new ERNO.Group( this.cubelets )
 			excluded.remove( included )
-		}						
-		this.show()		
+		}
+		this.show()
 		excluded.showPlastics()
 		excluded.showStickers()
 		excluded.hideWireframes()
@@ -228,8 +228,8 @@ var presets = {
 	presetPurty: function(){
 
 		this.showIntroverts()
-		setTimeout( function(){ 
-			
+		setTimeout( function(){
+
 			$( '.cubelet' ).addClass( 'purty' )
 
 		}, 1 )
@@ -242,7 +242,7 @@ var presets = {
 		//updateControls( this )
 	},
 	presetDemo: function(){
-		var 
+		var
 		cube  = this,
 		loops = 0,
 		captions = $( '#captions' )
@@ -268,11 +268,11 @@ var presets = {
 
 
 			//  Opacity demo.
-			
+
 			function(){
 
 				cube.back.setOpacity( 0.2 )
-				cube.taskQueue.isReady = false					
+				cube.taskQueue.isReady = false
 				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )
 			},
 			function(){
@@ -347,7 +347,7 @@ var presets = {
 			},
 			function(){
 
-				var 
+				var
 				excluded = new ERNO.Group( cube.cubelets ),
 				included = cube.hasColors( RED, YELLOW, BLUE )
 
@@ -383,17 +383,17 @@ var presets = {
 			//  and these can be a core or centers, edges, and corners.
 
 			function(){
-				
+
 				captions.text( 'Core' ).fadeIn()
 				cube.presetHighlightCore()
 				cube.taskQueue.isReady = false
-				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )					
+				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )
 			},
 			function(){
-				
+
 				cube.showIds()
 				cube.taskQueue.isReady = false
-				setTimeout( function(){ cube.taskQueue.isReady = true }, (2).seconds() )	
+				setTimeout( function(){ cube.taskQueue.isReady = true }, (2).seconds() )
 			},
 			function(){
 
@@ -418,15 +418,15 @@ var presets = {
 				cube.twist( 'rdRD'.multiply( 3 ))
 			},
 			function(){
-				
+
 				captions.fadeOut()
 				cube.taskQueue.isReady = false
-				setTimeout( function(){ cube.taskQueue.isReady = true }, (2).seconds() )	
+				setTimeout( function(){ cube.taskQueue.isReady = true }, (2).seconds() )
 			},
 
 
 			//  Wireframe demo.
-			
+
 			function(){
 
 				cube.left.setOpacity( 0 )
@@ -451,7 +451,7 @@ var presets = {
 				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )
 			},
 			function(){
-				
+
 				cube.middle
 					.hidePlastics()
 					.hideStickers()
@@ -511,7 +511,7 @@ var presets = {
 				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )
 			},
 			function(){
-				
+
 				cube.middle
 					.hidePlastics()
 					.hideStickers()
@@ -576,7 +576,7 @@ var presets = {
 				setTimeout( function(){ cube.taskQueue.isReady = true }, 1000 )
 			},
 			function(){
-				
+
 				cube.middle
 					.showPlastics()
 					.showStickers()
