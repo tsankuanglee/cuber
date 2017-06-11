@@ -1,43 +1,49 @@
-TK's Cuber
-==========
+# TK's Cuber
 
 The original Cuber framework was written by the very talented Stewart Smith. I customized it in the following ways:
 
-# The new set of control keys are more suitable for my needs.
+## The new set of control keys are more suitable for my needs.
 
 I need fast and intuitive keys, so the original SHIFT is gone, and keys are now symmetric between two hands.
 
-## rotate slices
+### rotate slices
 
 Rotate Up, Equator, Down row from Front face to Left/Right (notice they are symmetric on the standard QWERTY keyboard):
+```
 Q P
 A ;
 Z /
+```
 
 Rotate Back, Standing, Front row from Top to Left/Right:
+```
 W O
 S L
 X .
+```
 
 Rotate Left, Middle, Right column from Top to Back/Front (for symmerty, R and U do the same thing, so do V and N).
+```
 E RU I (move to Back)
 C VN M (move to Front)
+```
 
 
 
-## Rotate whoel cube
+### Rotate whoel cube
+```
 Top to Back/Front: TY BN
 Top to Left/Right: F J
 Front to Left/Right: G H
+```
 
 ## Shuffle
+```
 Capital S shuffles the cube
+```
 
 
 # Original README.md
-
-Cuber
-==============================================================================
 
 Cuber is a Rubik's cube simulator written in javascript with a little bit of three.js thrown in for good measure. It uses CSS 3D transforms and has a programmatic API, and has different rendering outputs.
 
