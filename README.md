@@ -1,6 +1,8 @@
 # TK's Cuber
 
-The original Cuber framework was written by the very talented Stewart Smith. I customized it in the following ways:
+I enjoy [Ryan Heise's Rubik's Cube Simulator a lot](http://www.ryanheise.com/cube/speed.html), but I needed to make a few modification, and I'd like a more portable version to share with friends. I like Java myself, but non-techies around me are having trouble installingn it. Therefore, I decided to look for a javascript version to improve.
+
+The original Cuber framework was written by the very talented [Stewart Smith](https://github.com/stewdio/Cuber-DEMO). I customized it in the following ways:
 
 ## The new set of control keys are more suitable for my needs.
 
@@ -29,7 +31,6 @@ C VN M (move to Front)
 ```
 
 
-
 ### Rotate whoel cube
 ```
 Top to Back/Front: TY BN
@@ -37,10 +38,15 @@ Top to Left/Right: F J
 Front to Left/Right: G H
 ```
 
-## Shuffle
+### Shuffle
 ```
 Capital S shuffles the cube
 ```
+
+## All tiles are visiable all at once
+
+This saves a lot of rotating turns.
+
 
 
 # Original README.md
