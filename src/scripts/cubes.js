@@ -148,6 +148,8 @@ ERNO.Cube = function( parameters ){
 
 	this.twistDuration = parameters.twistDuration !== undefined ? parameters.twistDuration : 500;
 
+	this.shuffleTwistDuration = parameters.shuffleTwistDuration !== undefined ? parameters.shuffleTwistDuration : 50;
+
 
 	//  If we shuffle, how shall we do it?
 
@@ -156,14 +158,14 @@ ERNO.Cube = function( parameters ){
 
 	//  Size matters? Cubelets will attempt to read these values.
 	this.size = parameters.textureSize * 3;
-	this.cubeletSize = this.size / 3;
+	this.cubeletSize = this.size / 2.5;
 
 
 
 	//	To display our cube, we'll need some 3D specific attributes, like a camera
 
 	var
-	FIELD_OF_VIEW = 35,
+	FIELD_OF_VIEW = 30,
 	WIDTH         = window.innerWidth,
 	HEIGHT        = window.innerHeight,
 	ASPECT_RATIO  = WIDTH / HEIGHT,
@@ -455,7 +457,7 @@ ERNO.Cube = function( parameters ){
 	this.renderer = renderFactory( this.cubelets, this );
 	this.domElement = this.renderer.domElement;
 	this.domElement.classList.add( 'cube' );
-	this.domElement.style.fontSize = this.cubeletSize + 'px';
+	this.domElement.style.fontSize = this.cubeletSize*2/3 + 'px';
 
 	this.autoRotateObj3D.add( this.object3D );
 
@@ -525,15 +527,31 @@ ERNO.Cube = function( parameters ){
 	//	We'll set up a few event below to listen for specific commands,
 
 	//  Enable key commands for our Cube.
+    //
+    //
 
 	document.addEventListener( 'keypress', function( event ){
 		if( event.target.tagName.toLowerCase() !== 'input' &&
 			event.target.tagName.toLowerCase() !== 'textarea' &&
 			!this.mouseInteraction.active &&
 			this.keyboardControlsEnabled ){
-
 				var key = String.fromCharCode( event.which );
-				if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
+                // translate the key to my alternative keys
+				var keyIndex = ('tbi,vrceghqpa;/zjf.xlswo'+'ynmu').indexOf( key );
+				if( keyIndex >= 0 ) {
+					// 'XxRrMmLlYyUuEeDdZzFfSsBb'
+					// 'tbi,vrceghqpa;z/jf.xlsow'
+					// 'yn  mu'
+					key = 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm'[keyIndex];
+					this.twist(key);
+				} else if (key == 'S') {
+					// shuffle
+					this.shuffle();
+				}
+				// original keys
+				//if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
+
+
 
 		}
 	}.bind( this ));
@@ -557,9 +575,8 @@ ERNO.extend( ERNO.Cube.prototype, {
 		//	How many times should we shuffle?
 		amount = amount || 30;
 		//	Optional sequence of moves to execute instead of picking
-                //	random moves from this.shuffleMethod.
+        //	random moves from this.shuffleMethod.
 		sequence = sequence || '';
-
 
 		var moves = this.shuffleMethod.slice(),
 			move, inverseOfLastMove = new ERNO.Twist(), allowedMoves,
@@ -611,7 +628,6 @@ ERNO.extend( ERNO.Cube.prototype, {
 		//	By stashing the last move in our shuffle sequence, we can
 		// 	later check if the shuffling is complete
 		this.finalShuffle = move;
-
 
 	},
 
@@ -691,8 +707,7 @@ ERNO.extend( ERNO.Cube.prototype, {
 		var slice 	 = this.slicesDictionary[ twist.command.toLowerCase() ],
 			rotation = ( twist.degrees === undefined ? 90 : twist.degrees ) * twist.vector,
 			radians  = rotation.degreesToRadians(),
-			duration = Math.abs( radians - slice.rotation ) / ( Math.PI * 0.5 ) * this.twistDuration;
-
+			duration = Math.abs( radians - slice.rotation ) / ( Math.PI * 0.5 ) * (twist.isShuffle?this.shuffleTwistDuration:this.twistDuration);
 
 
 		var l = slice.indices.length,
