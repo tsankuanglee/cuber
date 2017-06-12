@@ -155,6 +155,13 @@ ERNO.Cube = function( parameters ){
 
 	this.shuffleMethod = this.PRESERVE_LOGO;
 
+    // use alternative keys to rotate cube
+    this.alternativeKeys   = parameters.alternativeKeys !== undefined ? parameters.alternativeKeys : 'tbi,vrceghqpa;/zjf.xlswoynmu';
+    this.alternativeKeyMap = parameters.alternativeKeyMap !== undefined ? parameters.alternativeKeyMap : 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm'; // new key mapping to the original keyset
+    this.key_shuffle = parameters.key_shuffle !== undefined ? parameters.key_shuffle : 'F';
+    this.key_undo = parameters.key_undo !== undefined ? parameters.key_undo : 'U';
+    this.key_redo = parameters.key_redo !== undefined ? parameters.key_redo : 'R';
+    this.key_solve = parameters.key_solve !== undefined ? parameters.key_solve : 'S';
 
 	//  Size matters? Cubelets will attempt to read these values.
 	this.size = parameters.textureSize * 3;
@@ -537,16 +544,22 @@ ERNO.Cube = function( parameters ){
 			this.keyboardControlsEnabled ){
 				var key = String.fromCharCode( event.which );
                 // translate the key to my alternative keys
-				var keyIndex = ('tbi,vrceghqpa;/zjf.xlswo'+'ynmu').indexOf( key );
+				var keyIndex = this.alternativeKeys.indexOf( key );
 				if( keyIndex >= 0 ) {
 					// 'XxRrMmLlYyUuEeDdZzFfSsBb'
 					// 'tbi,vrceghqpa;z/jf.xlsow'
 					// 'yn  mu'
-					key = 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm'[keyIndex];
+					key = this.alternativeKeyMap[keyIndex];
 					this.twist(key);
-				} else if (key == 'S') {
+				} else if (key == this.key_shuffle) {
 					// shuffle
 					this.shuffle();
+				} else if (key == this.key_undo) {
+                    this.undo();
+				} else if (key == this.key_redo) {
+                    this.redo();
+				} else if (key == this.key_solve) {
+                    this.solve();
 				}
 				// original keys
 				//if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
