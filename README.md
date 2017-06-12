@@ -38,14 +38,20 @@ Top to Left/Right: F J
 Front to Left/Right: G H
 ```
 
-### Shuffle
+### Shuffle, Undo, Redo
 ```
-Capital S shuffles the cube
+Capital `F`: shuffles the cube
+Capital `U`: undo
+Capital `R`: redo
 ```
 
 ## All tiles are visiable all at once
 
 This saves a lot of rotating turns.
+
+# How to run?
+
+Open index.html with your browser.
 
 
 
