@@ -90,10 +90,15 @@ $(document).ready( function(){
 		hideInvisibleFaces: true,
 		controls: controls,
 		twistDuration: 200,
+        alternativeKeys:  'tbi,vrceghqpa;/zjf.xlswoynmu',
+        alternativeKeyMap:'XxRrMmLlYyUuEeDdZzFfSsBbXxMm', // new key mapping to the original keyset
+        key_shuffle: 'F',
+        key_undo: 'U',
+        key_redo: 'R',
+        key_solve: 'S',
 		renderer: isIe ? ERNO.renderers.IeCSS3D : null
 	});
 	window.cube.shuffleMethod = window.cube.EVERYTHING;
-	//window.cube.hidePlastics();
 
 
 	var container = document.getElementById( 'container' );
