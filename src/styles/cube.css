@@ -38,6 +38,21 @@
 	color: #FFF;
 }
 
+.keysLabel {
+
+	display: none;
+	position: absolute;
+	font-size: 60px;
+	text-align: center;
+	font-family: "Monospace";
+	text-shadow: 0 0 24px rgba( 0, 0, 0, 0.3 );
+	color: #FFF;
+}
+
+.keysLabel-large {
+  font-size: 80px;
+	color: #e0a0e7;
+}
 
 
 

@@ -29,9 +29,6 @@
   ≈$=  ~$%  -$&                                                &$·  %$~  -$x
   -&   ~$~   &≠                                                #%   ~$~   #=*/
 
-
-
-
 /*
 
 
@@ -74,60 +71,55 @@
 
 */
 
+$(document).ready(function() {
 
+  var useLockedControls = true,
+    controls = useLockedControls
+      ? ERNO.Locked
+      : ERNO.Freeform;
 
+  var ua = navigator.userAgent,
+    isIe = ua.indexOf('MSIE') > -1 || ua.indexOf('Trident/') > -1;
 
-$(document).ready( function(){
+  window.cube = new ERNO.Cube({
+    hideInvisibleFaces: true,
+    controls: controls,
+    twistDuration: 200,
+    alternativeKeys: 'tbi,vrceghqpa;/zjf.xlswoynmu',
+    alternativeKeyMap: 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm', // new key mapping to the original keyset
+    key_shuffle: 'F',
+    key_undo: 'U',
+    key_redo: 'R',
+    key_solve: 'S',
+    key_toggleKeyPrompts: 'P',
+    renderer: isIe
+      ? ERNO.renderers.IeCSS3D
+      : null
+  });
+  window.cube.shuffleMethod = window.cube.EVERYTHING;
 
+  var container = document.getElementById('container');
+  container.appendChild(cube.domElement);
 
-	var useLockedControls = true,
-		controls = useLockedControls ? ERNO.Locked : ERNO.Freeform;
+  if (controls === ERNO.Locked) {
+    //var fixedOrientation = new THREE.Euler(  Math.PI * 0.1, Math.PI * -0.25, 0 );
+    var fixedOrientation = new THREE.Euler(Math.PI * 0.1, Math.PI * -0.102, Math.PI * 0);
+    cube.object3D.lookAt(cube.camera.position);
+    cube.rotation.x += fixedOrientation.x;
+    cube.rotation.y += fixedOrientation.y;
+    cube.rotation.z += fixedOrientation.z;
+  }
 
-	var ua = navigator.userAgent,
-		isIe = ua.indexOf('MSIE') > -1 || ua.indexOf('Trident/') > -1;
+  // The deviceMotion function provide some subtle mouse based motion
+  // The effect can be used with the Freeform and Locked controls.
+  // This could also integrate device orientation on mobile
 
-	window.cube = new ERNO.Cube({
-		hideInvisibleFaces: true,
-		controls: controls,
-		twistDuration: 200,
-        alternativeKeys:  'tbi,vrceghqpa;/zjf.xlswoynmu',
-        alternativeKeyMap:'XxRrMmLlYyUuEeDdZzFfSsBbXxMm', // new key mapping to the original keyset
-        key_shuffle: 'F',
-        key_undo: 'U',
-        key_redo: 'R',
-        key_solve: 'S',
-		renderer: isIe ? ERNO.renderers.IeCSS3D : null
-	});
-	window.cube.shuffleMethod = window.cube.EVERYTHING;
+  // var motion = deviceMotion( cube, container );
 
-
-	var container = document.getElementById( 'container' );
-	container.appendChild( cube.domElement );
-
-
-
-	if( controls === ERNO.Locked ){
-		//var fixedOrientation = new THREE.Euler(  Math.PI * 0.1, Math.PI * -0.25, 0 );
-		var fixedOrientation = new THREE.Euler(  Math.PI * 0.1, Math.PI * -0.102, Math.PI*0 );
-		cube.object3D.lookAt( cube.camera.position );
-		cube.rotation.x += fixedOrientation.x;
-		cube.rotation.y += fixedOrientation.y;
-		cube.rotation.z += fixedOrientation.z;
-	}
-
-
-	// The deviceMotion function provide some subtle mouse based motion
-	// The effect can be used with the Freeform and Locked controls.
-	// This could also integrate device orientation on mobile
-
-	// var motion = deviceMotion( cube, container );
-
-	// motion.decay = 0.1; 				// The drag effect
-	// motion.range.x = Math.PI * 0.06;	// The range of rotation
-	// motion.range.y = Math.PI * 0.06;
-	// motion.range.z = 0;
-	// motion.paused = false;				// disables the effect
-
-
+  // motion.decay = 0.1; 				// The drag effect
+  // motion.range.x = Math.PI * 0.06;	// The range of rotation
+  // motion.range.y = Math.PI * 0.06;
+  // motion.range.z = 0;
+  // motion.paused = false;				// disables the effect
 
 })

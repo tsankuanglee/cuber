@@ -1,9 +1,6 @@
-
-
 //	This is a basic css renderer that uses a modified version of the three.js CSS3DRenderer.
 //	Having the renderer in a seperate file allows us to abstract all the visual components
 //	of the cube in a simple, straightforward way.
-
 
 //	THREE.JS HACK
 
@@ -12,507 +9,560 @@
 //	this is useful as it allows you to exclude the THREE.Scene and all it's dependancies entirely.
 //	The only caveat is that we need to temporarily define/re-define a dummy Scene object
 
-
 var SceneType = THREE.Scene;
-THREE.Scene = SceneType || function(){};
-
+THREE.Scene = SceneType || function() {};
 
 ERNO.renderers = ERNO.renderers || {};
-ERNO.renderers.CSS3D = function( cubelets, cube ){
+ERNO.renderers.CSS3D = function(cubelets, cube) {
 
+  // SCENE + RENDERER
 
-	// SCENE + RENDERER
+  var renderer = new THREE.CSS3DRenderer(),
+    scene = new THREE.Object3D();
+  renderer.scene = scene;
 
-	var renderer = new THREE.CSS3DRenderer(),
-		scene = new THREE.Object3D();
-	renderer.scene = scene;
+  // Add the cube 3D object to the scene
 
+  scene.add(cube.autoRotateObj3D);
+  scene.add(cube.camera);
 
-	// Add the cube 3D object to the scene
+  //	FACE LABELS
 
-	scene.add( cube.autoRotateObj3D );
-	scene.add( cube.camera );
+  var faceLabel,
+    axis = new THREE.Vector3();
+  cube.faces.forEach(function(face, i) {
 
+    faceLabel = cube[face.face].label = new THREE.CSS3DObject(document.createElement('div'));
 
+    faceLabel.element.classList.add('faceLabel');
+    faceLabel.position.copy(face.axis).multiplyScalar(cube.size);
+    faceLabel.position.negate();
 
+    faceLabel.element.innerHTML = face.face.toUpperCase();
+    cube.object3D.add(faceLabel);
 
-	//	FACE LABELS
+  })
 
-	var faceLabel, axis = new THREE.Vector3();
-	cube.faces.forEach( function( face, i ){
+  cube.right.label.rotation.y = Math.PI * 0.5;
+  cube.left.label.rotation.y = Math.PI * -0.5;
+  cube.back.label.rotation.y = Math.PI;
+  cube.up.label.rotation.x = Math.PI * -0.5;
+  cube.down.label.rotation.x = Math.PI * 0.5;
 
-		faceLabel = cube[face.face].label = new THREE.CSS3DObject( document.createElement( 'div' ) );
+  // keys labels
 
-		faceLabel.element.classList.add( 'faceLabel' );
-		faceLabel.position.copy( face.axis ).multiplyScalar( cube.size );
-		faceLabel.position.negate();
+  cube.slices.forEach(function(slice, i) {
+    ['l', 'r'].forEach(function(hand) {
+      let keysLabel = cube[slice.name]["keysLabel_" + hand] = new THREE.CSS3DObject(document.createElement('div'));
+      keysLabel.element.classList.add('keysLabel');
+      keysLabel.element.innerHTML = ' ';
+      cube.object3D.add(keysLabel);
+    });
+  });
 
-		faceLabel.element.innerHTML = face.face.toUpperCase();
-		cube.object3D.add( faceLabel );
+  var key_placement = [
+    ["up", "q", "p"],
+    ["equator", "a", ";"],
+    ["down", "z", "/"]
+  ];
+  key_placement.forEach(function(k, i) {
 
-	})
+    let slice = cube[k[0]]
 
-	cube.right.label.rotation.y = Math.PI *  0.5;
-	cube.left.label.rotation.y 	= Math.PI * -0.5;
-	cube.back.label.rotation.y 	= Math.PI;
-	cube.up.label.rotation.x 	= Math.PI * -0.5;
-	cube.down.label.rotation.x 	= Math.PI *  0.5;
+    slice.keysLabel_l.element.innerHTML = k[1]
+    let position = slice.cubelets[2].position
+    slice.keysLabel_l.position = new THREE.Vector3(position.x - cube.cubeletSize*.75, position.y, position.z + cube.cubeletSize / 2)
 
+    slice.keysLabel_r.element.innerHTML = k[2]
+    position = slice.cubelets[6].position
+    slice.keysLabel_r.position = new THREE.Vector3(position.x + cube.cubeletSize / 2, position.y - cube.cubeletSize*.25, position.z - cube.cubeletSize *1.5)
+    slice.keysLabel_r.rotation.y = Math.PI * 0.25;
+  })
 
-	function showItem( item ){
-		item.style.display = 'block';
-	}
-	function hideItem( item ){
-		item.style.display = 'none';
-	}
+  key_placement = [
+    ["back", 0, "w", 8, "o"],
+    ["standing", 8, "s", 0, "l"],
+    ["front", 8, "x", 0, "."]
+  ];
+  key_placement.forEach(function(k, i) {
 
-	function getFaceLabelElements(){
-		return Array.prototype.slice.call( renderer.domElement.querySelectorAll( '.faceLabel' ));
-	}
+    let slice = cube[k[0]]
+    slice.keysLabel_l.element.innerHTML = k[2]
+    let position = slice.cubelets[k[1]].position
+    slice.keysLabel_l.position = new THREE.Vector3(position.x - cube.cubeletSize*.75, position.y + cube.cubeletSize / 2, position.z - cube.cubeletSize*.25)
+    slice.keysLabel_l.rotation.x = Math.PI * -0.4;
 
+    slice.keysLabel_r.element.innerHTML = k[4]
+    position = slice.cubelets[k[3]].position
+    slice.keysLabel_r.position = new THREE.Vector3(position.x + cube.cubeletSize*.75, position.y, position.z + cube.cubeletSize*.75)
+    slice.keysLabel_r.rotation.x = Math.PI * -0.5;
+  })
 
-	cube.showFaceLabels = function(){
+  key_placement = [
+    ["left", 6, "e", 2, "c"],
+    ["middle", 6, "ru", 2, "vm"],
+    ["right", 6, "i", 2, ","]
+  ];
+  key_placement.forEach(function(k, i) {
 
-		getFaceLabelElements().forEach( showItem );
-		this.showingFaceLabels = true;
+    let slice = cube[k[0]]
+    slice.keysLabel_l.element.innerHTML = k[2]
+    let position = slice.cubelets[k[1]].position
+    slice.keysLabel_l.position = new THREE.Vector3(position.x, position.y + cube.cubeletSize / 2, position.z - cube.cubeletSize*1.25)
+    slice.keysLabel_l.rotation.x = Math.PI * -0.4;
 
-		return this;
+    slice.keysLabel_r.element.innerHTML = k[4]
+    position = slice.cubelets[k[3]].position
+    slice.keysLabel_r.position = new THREE.Vector3(position.x, position.y - cube.cubeletSize / 2, position.z + cube.cubeletSize*.75)
+    slice.keysLabel_r.rotation.x = Math.PI * -0.5;
+  })
 
-	}
+  // keylabels for whole cube rotation
+  key_placement = [
+    ["ty",    0,  .75, -.75, -.4],
+    ["bn",    0, -.75,   .7, -.4],
+    ["g",  -.75,    0,  .75,   0],
+    ["h",   .75,    0, -.75,   0],
+    ["f",  -.6,   .75,   .5, -.4],
+    ["j",   .75, -.75,  -.5, -.4],
 
+    // ["Z", 9, "f", 17, "j"]
+  ];
+  key_placement.forEach(function(k, i) {
 
-	cube.hideFaceLabels = function(){
+    let keysLabel = cube['rotation_keylabel_'+k[0]] = new THREE.CSS3DObject(document.createElement('div'));
+    keysLabel.element.classList.add('keysLabel')
+    keysLabel.element.classList.add('keysLabel-large')
+    keysLabel.element.innerHTML = k[0];
+    cube.object3D.add(keysLabel);
 
-		getFaceLabelElements().forEach( hideItem );
-		this.showingFaceLabels = false;
+    keysLabel.position = (new THREE.Vector3(k[1], k[2], k[3])).multiplyScalar(cube.size);
+    keysLabel.rotation.x = Math.PI * k[4];
 
-		return this;
-	}
+  })
 
+  function showItem(item) {
+    item.style.display = 'block';
+  }
+  function hideItem(item) {
+    item.style.display = 'none';
+  }
 
+  function getfaceLabelElements() {
+    return Array.prototype.slice.call(renderer.domElement.querySelectorAll('.faceLabel'));
+  }
+  cube.showfaceLabels = function() {
+    getfaceLabelElements().forEach(showItem);
+    this.showingfaceLabels = true;
+    return this;
+  }
+  cube.hidefaceLabels = function() {
+    getfaceLabelElements().forEach(hideItem);
+    this.showingfaceLabels = false;
+    return this;
+  }
 
+  function getkeysLabelElements() {
+    return Array.prototype.slice.call(renderer.domElement.querySelectorAll('.keysLabel'));
+  }
+  cube.showkeysLabels = function() {
+    getkeysLabelElements().forEach(showItem);
+    this.showingkeysLabels = true;
+    return this;
+  }
+  cube.hidekeysLabels = function() {
+    getkeysLabelElements().forEach(hideItem);
+    this.showingkeysLabels = false;
+    return this;
+  }
 
-	//	CSS CUBELETS
-	//	Each ERNO.Cubelet is an abstract representation of a cubelet,
-	//	it has some useful information like a list of faces, but it doesn't have any visual component.
-	// 	Here we take the abstract cubelet and create something you can see.
+  //	CSS CUBELETS
+  //	Each ERNO.Cubelet is an abstract representation of a cubelet,
+  //	it has some useful information like a list of faces, but it doesn't have any visual component.
+  // 	Here we take the abstract cubelet and create something you can see.
 
-	//	First we add some functionality to the ERNO.Cubelet specific to css,
-	//	things like setOpacity, and showStickers directly affects css styles.
+  //	First we add some functionality to the ERNO.Cubelet specific to css,
+  //	things like setOpacity, and showStickers directly affects css styles.
 
-	ERNO.extend( ERNO.Cubelet.prototype, ERNO.renderers.CSS3DCubelet.methods );
+  ERNO.extend(ERNO.Cubelet.prototype, ERNO.renderers.CSS3DCubelet.methods);
 
+  // 	Then we use the CSS3DCubelet function to create all the dom elements.
 
-	// 	Then we use the CSS3DCubelet function to create all the dom elements.
+  cubelets.forEach(ERNO.renderers.CSS3DCubelet);
 
-	cubelets.forEach( ERNO.renderers.CSS3DCubelet );
+  // RENDER LOOP
 
+  function render() {
 
+    if (cube.domElement.parentNode) {
 
+      var parentWidth = cube.domElement.parentNode.clientWidth,
+        parentHeight = cube.domElement.parentNode.clientHeight;
 
-	// RENDER LOOP
+      if (cube.domElement.parentNode && (cube.domElement.clientWidth !== parentWidth || cube.domElement.clientHeight !== parentHeight)) {
 
-	function render(){
+        cube.setSize(parentWidth, parentHeight);
 
-		if( cube.domElement.parentNode ){
+      }
 
-			var parentWidth = cube.domElement.parentNode.clientWidth,
-				parentHeight = cube.domElement.parentNode.clientHeight;
+      renderer.render(scene, cube.camera);
+    }
 
-			if( cube.domElement.parentNode &&
-			  ( cube.domElement.clientWidth  !== parentWidth ||
-				cube.domElement.clientHeight !== parentHeight )){
+    requestAnimationFrame(render);
 
-					cube.setSize( parentWidth, parentHeight );
+  }
 
-			}
+  requestAnimationFrame(render);
 
-			renderer.render( scene, cube.camera );
-		}
+  // We'll need to set the scene object back to it's original type
+  if (SceneType)
+    THREE.Scene = SceneType;
 
-		requestAnimationFrame( render );
+  // All renderers must return an object containing a domElement and an setSize method,
+  // in most instances this is the renderer object itself.
 
-	}
-
-
-	requestAnimationFrame( render );
-
-
-	// We'll need to set the scene object back to it's original type
-	if( SceneType ) THREE.Scene = SceneType;
-
-
-
-	// All renderers must return an object containing a domElement and an setSize method,
-	// in most instances this is the renderer object itself.
-
-	return renderer;
-
+  return renderer;
 
 }
 
+ERNO.renderers.CSS3DCubelet = (function() {
 
+  return function(cubelet) {
 
+    var domElement = document.createElement('div');
+    domElement.classList.add('cubelet');
+    domElement.classList.add('cubeletId-' + cubelet.id);
+    cubelet.css3DObject = new THREE.CSS3DObject(domElement);
 
-ERNO.renderers.CSS3DCubelet = (function(){
+    cubelet.css3DObject.name = 'css3DObject-' + cubelet.id;
+    cubelet.add(cubelet.css3DObject);
 
+    var faceSpacing = (cubelet.size / 2);
 
-	return function( cubelet ){
+    var transformMap = [
 
+      "rotateX(   0deg ) translateZ( " + faceSpacing + "px ) rotateZ(   0deg )",
+      "rotateX(  90deg ) translateZ( " + faceSpacing + "px ) rotateZ(   0deg )",
+      "rotateY(  90deg ) translateZ( " + faceSpacing + "px ) rotateZ(   0deg )",
+      "rotateX( -90deg ) translateZ( " + faceSpacing + "px ) rotateZ(  90deg )",
+      "rotateY( -90deg ) translateZ( " + faceSpacing + "px ) rotateZ( -90deg )",
+      "rotateY( 180deg ) translateZ( " + faceSpacing + "px ) rotateZ( -90deg )"
+    ]
 
-		var domElement = document.createElement( 'div' );
-		domElement.classList.add( 'cubelet' );
-		domElement.classList.add( 'cubeletId-'+ cubelet.id );
-		cubelet.css3DObject = new THREE.CSS3DObject( domElement );
+    var axisMap = [
+      'axisZ',
+      'axisY',
+      'axisX',
+      'axisY',
+      'axisX',
+      'axisZ'
+    ]
 
+    //	CUBELET FACES
 
-		cubelet.css3DObject.name = 'css3DObject-' + cubelet.id;
-		cubelet.add( cubelet.css3DObject );
+    //  We're about to loop through our 6 faces
+    //  and create visual dom elements for each
+    //  Here's our overhead for that:
 
+    cubelet.faces.forEach(function(face) {
 
-		var faceSpacing = ( cubelet.size / 2 );
+      //  FACE CONTAINER.
+      //  This face of our Cubelet needs a DOM element for all the
+      //  related DOM elements to be attached to.
 
-		var transformMap = [
+      face.element = document.createElement('div');
+      face.element.classList.add('face');
+      face.element.classList.add(axisMap[face.id]);
+      face.element.classList.add('face' + ERNO.Direction.getNameById(face.id).capitalize());
+      cubelet.css3DObject.element.appendChild(face.element);
 
-			"rotateX(   0deg ) translateZ( "+faceSpacing+"px ) rotateZ(   0deg )",
-			"rotateX(  90deg ) translateZ( "+faceSpacing+"px ) rotateZ(   0deg )",
-			"rotateY(  90deg ) translateZ( "+faceSpacing+"px ) rotateZ(   0deg )",
-			"rotateX( -90deg ) translateZ( "+faceSpacing+"px ) rotateZ(  90deg )",
-			"rotateY( -90deg ) translateZ( "+faceSpacing+"px ) rotateZ( -90deg )",
-			"rotateY( 180deg ) translateZ( "+faceSpacing+"px ) rotateZ( -90deg )",
+      //  WIREFRAME.
 
-		]
+      var wireframeElement = document.createElement('div');
+      wireframeElement.classList.add('wireframe');
+      face.element.appendChild(wireframeElement);
 
-		var axisMap = [
-			'axisZ',
-			'axisY',
-			'axisX',
-			'axisY',
-			'axisX',
-			'axisZ',
-		]
+      //  CUBELET ID.
+      //  For debugging we want the ability to display this Cubelet's ID number
+      //  with an underline (to make numbers like 6 and 9 legible upside-down).
 
+      var idElement = document.createElement('div');
+      idElement.classList.add('id');
+      face.element.appendChild(idElement);
 
+      var underlineElement = document.createElement('span');
+      underlineElement.classList.add('underline');
+      underlineElement.innerText = cubelet.id;
+      idElement.appendChild(underlineElement);
 
-		//	CUBELET FACES
+      // Each face has a different orientation represented by a CSS 3D transform.
+      // Here we select and apply the correct one.
 
-		//  We're about to loop through our 6 faces
-		//  and create visual dom elements for each
-		//  Here's our overhead for that:
+      var cssTransform = transformMap[face.id],
+        style = face.element.style;
 
-		cubelet.faces.forEach( function( face ) {
+      style.OTransform = style.MozTransform = style.WebkitTransform = style.transform = cssTransform;
 
+      //  INTROVERTED FACES.
+      //  If this face has no color sticker then it must be interior to the Cube.
+      //  That means in a normal state (no twisting happening) it is entirely hidden.
 
-			//  FACE CONTAINER.
-			//  This face of our Cubelet needs a DOM element for all the
-			//  related DOM elements to be attached to.
+      if (face.isIntrovert) {
 
-			face.element = document.createElement( 'div' );
-			face.element.classList.add( 'face' );
-			face.element.classList.add( axisMap[ face.id ]);
-			face.element.classList.add( 'face'+ ERNO.Direction.getNameById( face.id ).capitalize() );
-			cubelet.css3DObject.element.appendChild( face.element );
+        face.element.classList.add('faceIntroverted');
+        face.element.appendChild(document.createElement('div'));
 
+      }
 
-			//  WIREFRAME.
+      //  EXTROVERTED FACES.
+      //  But if this face does have a color then we need to
+      //  create a sticker with that color
+      //  and also allow text to be placed on it. else {
 
-			var wireframeElement = document.createElement( 'div' );
-			wireframeElement.classList.add( 'wireframe' );
-			face.element.appendChild( wireframeElement );
+      face.element.classList.add('faceExtroverted');
 
+      //  STICKER.
+      //  You know, the color part that makes the Cube
+      //  the most frustrating toy ever.
 
+      var stickerElement = document.createElement('div');
+      stickerElement.classList.add('sticker');
+      stickerElement.classList.add(face.color.name);
+      face.element.appendChild(stickerElement);
 
-			//  CUBELET ID.
-			//  For debugging we want the ability to display this Cubelet's ID number
-			//  with an underline (to make numbers like 6 and 9 legible upside-down).
+      //  If this happens to be our logo-bearing Cubelet
+      //  we had better attach the logo to it!
 
-			var idElement = document.createElement( 'div' );
-			idElement.classList.add( 'id' );
-			face.element.appendChild( idElement );
+      if (cubelet.isStickerCubelet) {
 
-			var underlineElement = document.createElement( 'span' );
-			underlineElement.classList.add( 'underline' );
-			underlineElement.innerText = cubelet.id;
-			idElement.appendChild( underlineElement );
+        stickerElement.classList.add('stickerLogo')
+      }
 
+      //  TEXT.
+      //  One character per face, mostly for our branding.
 
+      var textElement = document.createElement('div');
+      textElement.classList.add('text');
+      textElement.innerText = face.id;
+      face.text = textElement;
+      face.element.appendChild(textElement);
 
-			// Each face has a different orientation represented by a CSS 3D transform.
-			// Here we select and apply the correct one.
+    })
 
-			var cssTransform = transformMap[ face.id ],
-				style = face.element.style;
+    //  These will perform their actions, of course,
+    //  but also setup their own boolean toggles.
 
-			style.OTransform = style.MozTransform = style.WebkitTransform = style.transform = cssTransform;
+    cubelet.show();
+    cubelet.showIntroverts();
+    cubelet.showPlastics();
+    cubelet.showStickers();
+    cubelet.hideIds();
+    cubelet.hideTexts();
+    cubelet.hideWireframes();
 
-
-
-			//  INTROVERTED FACES.
-			//  If this face has no color sticker then it must be interior to the Cube.
-			//  That means in a normal state (no twisting happening) it is entirely hidden.
-
-			if( face.isIntrovert ){
-
-				face.element.classList.add( 'faceIntroverted' );
-				face.element.appendChild( document.createElement( 'div' ));
-
-			}
-
-
-			//  EXTROVERTED FACES.
-			//  But if this face does have a color then we need to
-			//  create a sticker with that color
-			//  and also allow text to be placed on it.
-
-			else {
-
-
-				face.element.classList.add( 'faceExtroverted' );
-
-
-
-				//  STICKER.
-				//  You know, the color part that makes the Cube
-				//  the most frustrating toy ever.
-
-				var stickerElement = document.createElement( 'div' );
-				stickerElement.classList.add( 'sticker' );
-				stickerElement.classList.add( face.color.name );
-				face.element.appendChild( stickerElement );
-
-
-
-				//  If this happens to be our logo-bearing Cubelet
-				//  we had better attach the logo to it!
-
-				if( cubelet.isStickerCubelet ){
-
-					stickerElement.classList.add( 'stickerLogo' )
-				}
-
-
-
-				//  TEXT.
-				//  One character per face, mostly for our branding.
-
-				var textElement = document.createElement( 'div' );
-				textElement.classList.add( 'text' );
-				textElement.innerText = face.id;
-				face.text = textElement;
-				face.element.appendChild( textElement );
-
-			}
-
-		})
-
-
-
-
-		//  These will perform their actions, of course,
-		//  but also setup their own boolean toggles.
-
-		cubelet.show();
-		cubelet.showIntroverts();
-		cubelet.showPlastics();
-		cubelet.showStickers();
-		cubelet.hideIds();
-		cubelet.hideTexts();
-		cubelet.hideWireframes();
-
-	}
+  }
 
 }());
-
 
 // 	The method object contains functionality specific to the CSS3D renderer that we add
 //	to the ERNO.Cubelet prototype
 
-ERNO.renderers.CSS3DCubelet.methods = (function(){
+ERNO.renderers.CSS3DCubelet.methods = (function() {
 
+  function showItem(item) {
+    item.style.display = 'block';
+  }
 
-	function showItem( item ){
-		item.style.display = 'block';
-	}
+  function hideItem(item) {
+    item.style.display = 'none';
+  }
 
-	function hideItem( item ){
-		item.style.display = 'none';
-	}
+  return {
 
+    //  Visual switches.
+    getFaceElements: function(selector) {
 
-	return {
+      var selectorString = selector || '';
+      return Array.prototype.slice.call(this.css3DObject.element.querySelectorAll('.face' + selectorString));
 
-		//  Visual switches.
-		getFaceElements: function ( selector ){
+    },
 
-			var selectorString = selector || '';
-			return Array.prototype.slice.call( this.css3DObject.element.querySelectorAll( '.face' + selectorString ));
+    show: function() {
 
-		},
+      showItem(this.css3DObject.element);
+      this.showing = true
+    },
+    hide: function() {
 
-		show: function(){
+      hideItem(this.css3DObject.element);
+      this.showing = false
+    },
+    showExtroverts: function() {
 
-			showItem( this.css3DObject.element );
-			this.showing = true
-		},
-		hide: function(){
+      this.getFaceElements('.faceExtroverted').forEach(showItem);
+      this.showingExtroverts = true;
+    },
+    hideExtroverts: function() {
 
-			hideItem( this.css3DObject.element );
-			this.showing = false
-		},
-		showExtroverts: function(){
+      this.getFaceElements('.faceExtroverted').forEach(hideItem);
+      this.showingExtroverts = false;
+    },
+    showIntroverts: function() {
 
-			this.getFaceElements( '.faceExtroverted' ).forEach( showItem );
-			this.showingExtroverts = true;
-		},
-		hideExtroverts: function(){
+      var axis = new THREE.Vector3(),
+        inv = new THREE.Matrix4(),
+        only;
 
-			this.getFaceElements( '.faceExtroverted' ).forEach( hideItem );
-			this.showingExtroverts = false;
-		},
-		showIntroverts: function(){
+      return function(onlyAxis, soft) {
 
-			var axis = new THREE.Vector3(),
-				inv = new THREE.Matrix4(),
-				only;
+        only = '';
 
-			return function( onlyAxis, soft ){
+        if (onlyAxis) {
+          inv.getInverse(this.matrix);
+          axis.copy(onlyAxis).transformDirection(inv);
+          only = (Math.abs(Math.round(axis.x)) === 1)
+            ? '.axisX'
+            : (Math.round(Math.abs(axis.y)) === 1)
+              ? '.axisY'
+              : '.axisZ';
+        }
 
-				only = '';
+        this.getFaceElements('.faceIntroverted' + (onlyAxis !== undefined
+          ? only
+          : "")).forEach(showItem);
+        if (!soft)
+          this.showingIntroverts = true;
 
-				if( onlyAxis ){
-					inv.getInverse( this.matrix );
-					axis.copy( onlyAxis ).transformDirection( inv );
-					only = ( Math.abs( Math.round( axis.x )) === 1 ) ? '.axisX' : ( Math.round( Math.abs( axis.y )) === 1 ) ? '.axisY' : '.axisZ';
-				}
+        }
+      }(),
+    hideIntroverts: function() {
 
-				this.getFaceElements( '.faceIntroverted' + ( onlyAxis !== undefined ? only : "" )).forEach( showItem );
-				if( !soft ) this.showingIntroverts = true;
+      var axis = new THREE.Vector3(),
+        inv = new THREE.Matrix4(),
+        only;
 
-			}
-		}(),
-		hideIntroverts: function(){
+      return function(onlyAxis, soft) {
 
-			var axis = new THREE.Vector3(),
-				inv = new THREE.Matrix4(),
-				only;
+        only = '';
 
-			return function( onlyAxis, soft ){
+        if (onlyAxis) {
+          inv.getInverse(this.matrix);
+          axis.copy(onlyAxis).transformDirection(inv);
+          only = (Math.abs(Math.round(axis.x)) === 1)
+            ? '.axisX'
+            : (Math.round(Math.abs(axis.y)) === 1)
+              ? '.axisY'
+              : '.axisZ';
+        }
 
-				only = '';
+        this.getFaceElements('.faceIntroverted' + (onlyAxis !== undefined
+          ? only
+          : "")).forEach(hideItem);
+        if (!soft)
+          this.showingIntroverts = false;
 
-				if( onlyAxis ){
-					inv.getInverse( this.matrix );
-					axis.copy( onlyAxis ).transformDirection( inv );
-					only = ( Math.abs( Math.round( axis.x )) === 1 ) ? '.axisX' : ( Math.round( Math.abs( axis.y )) === 1 ) ? '.axisY' : '.axisZ';
-				}
+        }
+      }(),
 
-				this.getFaceElements( '.faceIntroverted' + ( onlyAxis !== undefined ? only : "" )).forEach( hideItem );
-				if( !soft ) this.showingIntroverts = false;
+    showPlastics: function() {
 
-			}
-		}(),
+      this.getFaceElements().forEach(function(item) {
+        item.classList.remove('faceTransparent');
+      });
+      this.showingPlastics = true;
+    },
+    hidePlastics: function() {
 
-		showPlastics: function(){
+      this.getFaceElements().forEach(function(item) {
+        item.classList.add('faceTransparent');
+      });
+      this.showingPlastics = false;
+    },
+    hideStickers: function() {
 
-			this.getFaceElements().forEach( function( item ){
-				item.classList.remove( 'faceTransparent' );
-			});
-			this.showingPlastics = true;
-		},
-		hidePlastics: function(){
+      this.getFaceElements(' .sticker').forEach(hideItem);
+      this.showingStickers = false;
+    },
+    showStickers: function() {
 
-			this.getFaceElements( ).forEach( function( item ){
-				item.classList.add( 'faceTransparent' );
-			});
-			this.showingPlastics = false;
-		},
-		hideStickers: function(){
+      this.getFaceElements(' .sticker').forEach(showItem);
+      this.showingStickers = true;
+    },
+    showWireframes: function() {
 
-			this.getFaceElements( ' .sticker' ).forEach( hideItem );
-			this.showingStickers = false;
-		},
-		showStickers: function(){
+      this.getFaceElements(' .wireframe').forEach(showItem);
+      this.showingWireframes = true;
+    },
+    hideWireframes: function() {
 
-			this.getFaceElements( ' .sticker' ).forEach( showItem );
-			this.showingStickers = true;
-		},
-		showWireframes: function(){
+      this.getFaceElements(' .wireframe').forEach(hideItem);
+      this.showingWireframes = false;
+    },
+    showIds: function() {
 
-			this.getFaceElements( ' .wireframe' ).forEach( showItem );
-			this.showingWireframes = true;
-		},
-		hideWireframes: function(){
+      this.getFaceElements(' .id').forEach(showItem);
+      this.showingIds = true;
+    },
+    hideIds: function() {
 
-			this.getFaceElements( ' .wireframe' ).forEach( hideItem );
-			this.showingWireframes = false;
-		},
-		showIds: function(){
+      this.getFaceElements(' .id').forEach(hideItem);
+      this.showingIds = false;
+    },
+    showTexts: function() {
 
-			this.getFaceElements( ' .id' ).forEach( showItem );
-			this.showingIds = true;
-		},
-		hideIds: function(){
+      this.getFaceElements(' .text').forEach(showItem);
+      this.showingTexts = true;
+    },
+    hideTexts: function() {
 
-			this.getFaceElements( ' .id' ).forEach( hideItem );
-			this.showingIds = false;
-		},
-		showTexts: function(){
+      this.getFaceElements(' .text').forEach(hideItem);
+      this.showingTexts = false;
+    },
+    getOpacity: function() {
 
-			this.getFaceElements( ' .text' ).forEach( showItem );
-			this.showingTexts = true;
-		},
-		hideTexts: function(){
+      return this.opacity
+    },
+    setOpacity: function(opacityTarget, onComplete) {
 
-			this.getFaceElements( ' .text' ).forEach( hideItem );
-			this.showingTexts = false;
-		},
-		getOpacity: function(){
+      if (this.opacityTween)
+        this.opacityTween.stop()
+      if (opacityTarget === undefined)
+        opacityTarget = 1
+      if (opacityTarget !== this.opacity) {
 
-			return this.opacity
-		},
-		setOpacity: function( opacityTarget, onComplete ){
+        var that = this,
+          tweenDuration = (opacityTarget - this.opacity).absolute().scale(0, 1, 0, 1000 * 0.2)
 
-			if( this.opacityTween ) this.opacityTween.stop()
-			if( opacityTarget === undefined ) opacityTarget = 1
-			if( opacityTarget !== this.opacity ){
+        this.opacityTween = new TWEEN.Tween({opacity: this.opacity}).to({
 
-				var
-				that = this,
-				tweenDuration = ( opacityTarget - this.opacity ).absolute().scale( 0, 1, 0, 1000 * 0.2 )
+          opacity: opacityTarget
 
-				this.opacityTween = new TWEEN.Tween({ opacity: this.opacity })
-				.to({
+        }, tweenDuration).easing(TWEEN.Easing.Quadratic.InOut).onUpdate(function() {
 
-					opacity: opacityTarget
+          that.css3DObject.element.style.opacity = this.opacity;
+          that.opacity = this.opacity //opacityTarget
+        }).onComplete(function() {
 
-				}, tweenDuration )
-				.easing( TWEEN.Easing.Quadratic.InOut )
-				.onUpdate( function(){
+          if (onComplete instanceof Function)
+            onComplete()
+        }).start()
 
-					that.css3DObject.element.style.opacity =  this.opacity;
-					that.opacity = this.opacity//opacityTarget
-				})
-				.onComplete( function(){
+      }
+    },
+    getStickersOpacity: function(value) {
 
-					if( onComplete instanceof Function ) onComplete()
-				})
-				.start()
+      return parseFloat(this.getFaceElements(' .sticker')[0].style.opacity);
+    },
+    setStickersOpacity: function(value) {
 
-			}
-		},
-		getStickersOpacity: function( value ){
+      if (value === undefined)
+        value = 0.2;
+      var valueStr = value;
+      this.getFaceElements(' .sticker').forEach(function(sticker) {
+        sticker.style.opacity = valueStr.toString();
+      });
+    }
 
-			return parseFloat( this.getFaceElements( ' .sticker' )[0].style.opacity );
-		},
-		setStickersOpacity: function( value ){
-
-			if( value === undefined ) value = 0.2;
-			var valueStr = value;
-			this.getFaceElements( ' .sticker' ).forEach( function( sticker ){
-				sticker.style.opacity = valueStr.toString();
-			});
-		}
-
-	}
+  }
 
 }())
