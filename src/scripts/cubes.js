@@ -162,6 +162,7 @@ ERNO.Cube = function( parameters ){
     this.key_undo = parameters.key_undo !== undefined ? parameters.key_undo : 'U';
     this.key_redo = parameters.key_redo !== undefined ? parameters.key_redo : 'R';
     this.key_solve = parameters.key_solve !== undefined ? parameters.key_solve : 'S';
+		this.key_toggleKeyPrompts = parameters.key_toggleKeyPrompts !== undefined ? parameters.key_toggleKeyPrompts : 'P';
 
 	//  Size matters? Cubelets will attempt to read these values.
 	this.size = parameters.textureSize * 3;
@@ -172,7 +173,7 @@ ERNO.Cube = function( parameters ){
 	//	To display our cube, we'll need some 3D specific attributes, like a camera
 
 	var
-	FIELD_OF_VIEW = 30,
+	FIELD_OF_VIEW = 35,
 	WIDTH         = window.innerWidth,
 	HEIGHT        = window.innerHeight,
 	ASPECT_RATIO  = WIDTH / HEIGHT,
@@ -472,6 +473,7 @@ ERNO.Cube = function( parameters ){
 	if( this.hideInvisibleFaces ) this.hideIntroverts( null, true );
 
 
+
 	//	The Interaction class provides all the nifty mouse picking stuff.
 	//	It's responsible for figuring out what cube slice is supposed to rotate
 	//	and in what direction.
@@ -555,12 +557,21 @@ ERNO.Cube = function( parameters ){
 					// shuffle
 					this.shuffle();
 				} else if (key == this.key_undo) {
-                    this.undo();
+          this.undo();
 				} else if (key == this.key_redo) {
-                    this.redo();
+          this.redo();
 				} else if (key == this.key_solve) {
-                    this.solve();
+          this.solve();
+				} else if (key == this.key_toggleKeyPrompts) {
+					if (this.showingkeysLabels) {
+						this.hidekeysLabels();
+					} else {
+						this.showkeysLabels();
+					}
+
 				}
+
+
 				// original keys
 				//if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
 
