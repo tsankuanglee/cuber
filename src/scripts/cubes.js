@@ -115,16 +115,17 @@ ERNO.Cube = function( parameters ){
 	this.hideInvisibleFaces = parameters.hideInvisibleFaces === undefined ? false : parameters.hideInvisibleFaces;
 
 
-
-
 	//	The amount of time we've been running
 	this.time = 0;
-
 
 	// 	We'll keep an record of the number of moves we've made
 	// 	Useful for keeping scores.
 	this.moveCounter = 0;
 
+  // used to distinguish shuffle moves and user moves
+  this.moveCounterSinceShuffleComplete = 0;
+
+  this.showingTimer = true;
 
 	//  Every fire of this.loop() will attempt to complete our tasks
 	//  which can only be run if this.isReady === true.
@@ -162,7 +163,8 @@ ERNO.Cube = function( parameters ){
     this.key_undo = parameters.key_undo !== undefined ? parameters.key_undo : 'U';
     this.key_redo = parameters.key_redo !== undefined ? parameters.key_redo : 'R';
     this.key_solve = parameters.key_solve !== undefined ? parameters.key_solve : 'S';
-		this.key_toggleKeyPrompts = parameters.key_toggleKeyPrompts !== undefined ? parameters.key_toggleKeyPrompts : 'P';
+    this.key_toggleKeyPrompts = parameters.key_toggleKeyPrompts !== undefined ? parameters.key_toggleKeyPrompts : 'P';
+    this.key_toggleTimer = parameters.key_toggleTimer !== undefined ? parameters.key_toggleTimer: 'T';
 
 	//  Size matters? Cubelets will attempt to read these values.
 	this.size = parameters.textureSize * 3;
@@ -558,27 +560,42 @@ ERNO.Cube = function( parameters ){
 				} else if (key == this.key_redo) {
           this.redo();
 				} else if (key == this.key_solve) {
-          this.solve();
+                    this.solve();
 				} else if (key == this.key_toggleKeyPrompts) {
 					if (this.showingkeysLabels) {
 						this.hidekeysLabels();
 					} else {
 						this.showkeysLabels();
 					}
-
+				} else if (key == this.key_toggleTimer) {
+					if (this.showingTimer) {
+						this.hideTimer();
+					} else {
+						this.showTimer();
+					}
 				}
-
 
 				// original keys
 				//if( 'XxRrMmLlYyUuEeDdZzFfSsBb'.indexOf( key ) >= 0 ) this.twist( key );
 
-
-
 		}
 	}.bind( this ));
 
+	this.addEventListener( 'onShuffleComplete', function( event ){
+		window.cube.timer.reset();
+		window.cube.moveCounterSinceShuffleComplete = window.cube.moveCounter;
+	}.bind( this ));
 
-
+	this.addEventListener( 'onTwistComplete', function( event ){
+		if (window.cube.isSolved()) {
+			window.cube.timer.stop();
+		} else {
+			if (!event.detail.twist.isShuffle && window.cube.moveCounterSinceShuffleComplete < window.cube.moveCounter) {
+				// it's OK to start an already-started timer
+				window.cube.timer.start();
+			}
+		}
+	}.bind( this ));
 
 }
 
@@ -606,7 +623,8 @@ ERNO.extend( ERNO.Cube.prototype, {
 
 		//	We're shuffling the cube so we should clear any history
 		this.twistQueue.empty( true );
-		this.historyQueue.empty( true )
+		this.historyQueue.empty( true );
+		this.timer.reset();
 
 
 		//	Create some random rotations based on our shuffle method

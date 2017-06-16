@@ -308,3 +308,28 @@
   	-o-backface-visibility:      hidden;
   	backface-visibility:         hidden;*/
 }
+
+/* timer */
+
+#timer {
+	height: .5em;
+}
+
+.stopwatch {
+  font-size: 5vw;
+  height: 100%;
+  line-height: 10vh;
+  text-align: center;
+}
+
+.results {
+	display: none;
+  border-color: lime;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

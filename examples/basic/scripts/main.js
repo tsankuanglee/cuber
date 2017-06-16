@@ -92,6 +92,7 @@ $(document).ready(function() {
     key_redo: 'R',
     key_solve: 'S',
     key_toggleKeyPrompts: 'P',
+    key_toggleTimer: 'T',
     renderer: isIe
       ? ERNO.renderers.IeCSS3D
       : null
@@ -122,4 +123,5 @@ $(document).ready(function() {
   // motion.range.z = 0;
   // motion.paused = false;				// disables the effect
 
+  window.cube.timer = new Stopwatch(document.querySelector('.stopwatch'), document.querySelector('.results'));
 })

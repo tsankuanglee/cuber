@@ -96,7 +96,7 @@ ERNO.renderers.CSS3D = function(cubelets, cube) {
     position = slice.cubelets[k[3]].position
     slice.keysLabel_r.position = new THREE.Vector3(position.x + cube.cubeletSize*.75, position.y, position.z + cube.cubeletSize*.75)
     slice.keysLabel_r.rotation.x = Math.PI * -0.5;
-  })
+  });
 
   key_placement = [
     ["left", 6, "e", 2, "c"],
@@ -161,7 +161,7 @@ ERNO.renderers.CSS3D = function(cubelets, cube) {
     this.showingfaceLabels = false;
     return this;
   }
-
+  // key labels
   function getkeysLabelElements() {
     return Array.prototype.slice.call(renderer.domElement.querySelectorAll('.keysLabel'));
   }
@@ -173,6 +173,20 @@ ERNO.renderers.CSS3D = function(cubelets, cube) {
   cube.hidekeysLabels = function() {
     getkeysLabelElements().forEach(hideItem);
     this.showingkeysLabels = false;
+    return this;
+  }
+  // timer
+  function getTimerElement() {
+    return document.querySelector('#timer');
+  }
+  cube.showTimer = function() {
+    showItem(getTimerElement());
+    this.showingTimer = true;
+    return this;
+  }
+  cube.hideTimer = function() {
+    hideItem(getTimerElement());
+    this.showingTimer = false;
     return this;
   }
 

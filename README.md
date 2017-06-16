@@ -44,6 +44,7 @@ Capital `F`: shuFfles the cube
 Capital `U`: Undo
 Capital `R`: Redo
 Capital `P`: toggle shortcut Prompts
+Capital `T`: toggle timer
 ```
 
 ## All tiles are visiable all at once
@@ -54,7 +55,10 @@ This saves a lot of rotating turns.
 
 Open index.html with your browser.
 
+# Credit
 
+* The original Cuber framework was written by the very talented [Stewart Smith](https://github.com/stewdio/Cuber-DEMO).
+* Timer is based on [Billy Brown's work](https://codepen.io/_Billy_Brown/pen/dbJeh).
 
 # Original README.md
 
