@@ -609,6 +609,11 @@ ERNO.extend( ERNO.Cube.prototype, {
 
 	shuffle: function( amount, sequence ){
 
+		// reset the timer
+		this.timer.stop();
+		this.timer.reset();
+		this.timer.print();
+
 
 		//	How many times should we shuffle?
 		amount = amount || 30;
