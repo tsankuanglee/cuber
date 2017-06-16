@@ -156,7 +156,7 @@ ERNO.Cube = function( parameters ){
 	this.shuffleMethod = this.PRESERVE_LOGO;
 
     // use alternative keys to rotate cube
-    this.alternativeKeys   = parameters.alternativeKeys !== undefined ? parameters.alternativeKeys : 'tbi,vrceghqpa;/zjf.xlswoynmu';
+    this.alternativeKeys   = parameters.alternativeKeys !== undefined ? parameters.alternativeKeys : 'tbi,vrcefjqpa;/zhg.xlswoynmu';
     this.alternativeKeyMap = parameters.alternativeKeyMap !== undefined ? parameters.alternativeKeyMap : 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm'; // new key mapping to the original keyset
     this.key_shuffle = parameters.key_shuffle !== undefined ? parameters.key_shuffle : 'F';
     this.key_undo = parameters.key_undo !== undefined ? parameters.key_undo : 'U';
@@ -548,9 +548,6 @@ ERNO.Cube = function( parameters ){
                 // translate the key to my alternative keys
 				var keyIndex = this.alternativeKeys.indexOf( key );
 				if( keyIndex >= 0 ) {
-					// 'XxRrMmLlYyUuEeDdZzFfSsBb'
-					// 'tbi,vrceghqpa;z/jf.xlsow'
-					// 'yn  mu'
 					key = this.alternativeKeyMap[keyIndex];
 					this.twist(key);
 				} else if (key == this.key_shuffle) {

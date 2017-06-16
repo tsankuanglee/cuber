@@ -85,7 +85,7 @@ $(document).ready(function() {
     hideInvisibleFaces: true,
     controls: controls,
     twistDuration: 200,
-    alternativeKeys: 'tbi,vrceghqpa;/zjf.xlswoynmu',
+    alternativeKeys: 'tbi,vrcefjqpa;/zhg.xlswoynmu',
     alternativeKeyMap: 'XxRrMmLlYyUuEeDdZzFfSsBbXxMm', // new key mapping to the original keyset
     key_shuffle: 'F',
     key_undo: 'U',

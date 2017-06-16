@@ -34,15 +34,16 @@ C VN M (move to Front)
 ### Rotate whoel cube
 ```
 Top to Back/Front: TY BN
-Top to Left/Right: F J
-Front to Left/Right: G H
+Top to Left/Right: G H
+Front to Left/Right: F J
 ```
 
-### Shuffle, Undo, Redo
+### Shuffle, Undo, Redo, etc.
 ```
-Capital `F`: shuffles the cube
-Capital `U`: undo
-Capital `R`: redo
+Capital `F`: shuFfles the cube
+Capital `U`: Undo
+Capital `R`: Redo
+Capital `P`: toggle shortcut Prompts
 ```
 
 ## All tiles are visiable all at once
