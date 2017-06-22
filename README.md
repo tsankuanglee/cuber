@@ -9,7 +9,7 @@
 
 You can use mouse, finger swipe, or keyboard to rotate any slice of the cube. See the shortcuts on the upper-right corner of the screen.
 
-Beginners may find on-screen key prmopts helpful. Press capital 'P' to show that.
+Beginners may find on-screen key prmopts helpful. Press capital <kbd>P</kbd> to show that.
 
 ## What is this?
 
@@ -25,7 +25,7 @@ I need fast and intuitive keys, so the original SHIFT is gone, and keys are now 
 
 #### rotate slices
 
-Rotate Up, Equator, Down row from Front face to Left/Right (notice they are symmetric on the standard QWERTY keyboard):
+Rotate Up, Equator, Down row from Front face to <kbd>Left</kbd>/<kbd>Right</kbd> (notice they are symmetric on the standard QWERTY keyboard):
 ```
 Q P
 A ;
