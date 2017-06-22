@@ -5,6 +5,12 @@
 - You can play the [online version](https://tsankuanglee.github.io/cuber/) in your browser.
 - Open index.html with your browser.
 
+## How to play?
+
+You can use mouse, finger swipe, or keyboard to rotate any slice of the cube. See the shortcuts on the upper-right corner of the screen.
+
+Beginners may find on-screen key prmopts helpful. Press capital 'P' to show that.
+
 ## What is this?
 
 I enjoy [Ryan Heise's Rubik's Cube Simulator a lot](http://www.ryanheise.com/cube/speed.html), but I needed to make a few modification, and I'd like a more portable version to share with friends. I like Java myself, but non-techies around me are having trouble installing it. Therefore, I decided to look for a javascript version to improve.
