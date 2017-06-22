@@ -26,26 +26,26 @@ I need fast and intuitive keys, so the original SHIFT is gone, and keys are now 
 #### rotate slices
 
 Rotate Up, Equator, Down row from Front face to <kbd>Left</kbd>/<kbd>Right</kbd> (notice they are symmetric on the standard QWERTY keyboard):
-```
+
 |       | F to L     | F to Right |
 |-------|:----------:|:----------:|
 |UP     |<kbd>q</kbd>|<kbd>p</kbd>|
 |EQUATOR|<kbd>a</kbd>|<kbd>;</kbd>|
 |DOWN   |<kbd>z</kbd>|<kbd>/</kbd>|
-```
+
 
 Rotate Back, Standing, Front row from Top to Left/Right:
-```
+
 <kbd>w</kbd> <kbd>o</kbd>
 <kbd>s</kbd> <kbd>l</kbd>
 <kbd>x</kbd> <kbd>.</kbd>
-```
+
 
 Rotate Left, Middle, Right column from Top to Back/Front (for symmerty, R and U do the same thing, so do V and N).
-```
+
 move to Back : <kbd>e</kbd> <kbd>r</kbd>/<kbd>u</kbd> <kbd>i</kbd>
 move to Front: <kbd>c</kbd> <kbd>v</kbd>/<kbd>n</kbd> <kbd>m</kbd>
-```
+
 
 #### Rotate whoel cube
 ```
@@ -55,14 +55,14 @@ Front to Left/Right: F J
 ```
 
 #### Shuffle, Undo, Redo, etc.
-```
+
 `?`: toggle help text
 Capital `F`: shuFfles the cube
 Capital `U`: Undo
 Capital `R`: Redo
 Capital `P`: toggle shortcut Prompts
 Capital `T`: toggle Timer
-```
+
 
 ### All tiles are visiable all at once
 
