@@ -165,6 +165,7 @@ ERNO.Cube = function( parameters ){
     this.key_solve = parameters.key_solve !== undefined ? parameters.key_solve : 'S';
     this.key_toggleKeyPrompts = parameters.key_toggleKeyPrompts !== undefined ? parameters.key_toggleKeyPrompts : 'P';
     this.key_toggleTimer = parameters.key_toggleTimer !== undefined ? parameters.key_toggleTimer: 'T';
+    this.key_toggleHelp = parameters.key_toggleHelp !== undefined ? parameters.key_toggleHelp: '?';
 
 	//  Size matters? Cubelets will attempt to read these values.
 	this.size = parameters.textureSize * 3;
@@ -573,6 +574,8 @@ ERNO.Cube = function( parameters ){
 					} else {
 						this.showTimer();
 					}
+				} else if (key == this.key_toggleHelp) {
+                    $('#help-overlay').toggle();
 				}
 
 				// original keys

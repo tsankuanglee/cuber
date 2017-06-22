@@ -9,8 +9,10 @@
 
 
 
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="src/styles/cube.css">
 	<link rel="stylesheet" type="text/css" href="examples/basic/styles/base.css">
+	<link rel="stylesheet" type="text/css" href="examples/basic/styles/extra.css">
 	<link rel="icon" type="image/png" href="build/media/cuber-favicon-0064x0064.png">
 	<link rel="apple-touch-icon" href="build/media/cuber-favicon-0144x0144.png">
 
@@ -85,8 +87,8 @@
 	<script charset="utf-8" src="src/scripts/extras/controls/locked.js"></script>
 	<script charset="utf-8" src="src/scripts/extras/deviceMotion.js"></script>
 	<script charset="utf-8" src="src/scripts/Stopwatch.js"></script>
-	<script charset="utf-8" src="examples/basic/scripts/main.js"></script>
 
+	<script charset="utf-8" src="examples/basic/scripts/main.js"></script>
 
 
 </head>
@@ -96,6 +98,19 @@
 		<div class="stopwatch"></div>
 		<div class="results"></div>
 	</div>
+    <div id="help-overlay">
+        <div id="help-content">
+            <h4>Shortcuts:</h4>
+            <ul>
+                <li>        ?: toggle this help</li>
+                <li>Capital F: shuFfles the cube</li>
+                <li>Capital U: Undo</li>
+                <li>Capital R: Redo</li>
+                <li>Capital P: toggle shortcut Prompts</li>
+                <li>Capital T: toggle Timer</li>
+            </ul>
+        </div>
+    </div>
 	<div id="container"></div>
 	<div id="fail">
 		<h1>Sorry,</h1>
