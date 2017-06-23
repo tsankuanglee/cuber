@@ -1,7 +1,11 @@
 # TK's Cuber
 
-![Screenshot1](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot1.png)
+Expert mode:
 ![Screenshot2](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot2.png)
+
+Beginner mode:
+![Screenshot1](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot1.png)
+
 
 ## How to run?
 
