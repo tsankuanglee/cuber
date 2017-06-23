@@ -6,6 +6,9 @@ Expert mode:
 Beginner mode:
 ![Screenshot3](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot3.png)
 
+[Video demo](https://youtu.be/8uy3vYhZeqo).
+
+
 ## How to run?
 
 - You can play the [online version](https://tsankuanglee.github.io/cuber/) in your browser.
