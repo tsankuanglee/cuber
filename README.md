@@ -1,5 +1,8 @@
 # TK's Cuber
 
+![Screenshot1](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot1.png)
+![Screenshot2](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot2.png)
+
 ## How to run?
 
 - You can play the [online version](https://tsankuanglee.github.io/cuber/) in your browser.
