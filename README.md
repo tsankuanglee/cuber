@@ -25,7 +25,7 @@ I need fast and intuitive keys, so the original SHIFT is gone, and keys are now 
 
 #### Rotate Slices
 
-Rotate Up, Equator, Down row from Front face to <kbd>Left</kbd>/<kbd>Right</kbd> (notice they are **symmetric** on the standard QWERTY keyboard):
+Rotate Up, Equator, Down row from Front face to LEFT/Right (notice they are **symmetric** on the standard QWERTY keyboard):
 
 |       | FRONT to LEFT  | FRONT to RIGHT |
 |-------|:--------------:|:--------------:|
@@ -34,33 +34,33 @@ Rotate Up, Equator, Down row from Front face to <kbd>Left</kbd>/<kbd>Right</kbd>
 |DOWN   |<kbd>z</kbd>    |<kbd>/</kbd>    |
 
 
-Rotate Back, Standing, Front row from Top to Left/Right:
+Rotate Back, Standing, Front row from UP to LEFT/RIGHT:
 
-|        | TOP to LEFT  | TOP to RIGHT |
-|--------|:------------:|:------------:|
-|BACK    |<kbd>w</kbd>  |<kbd>o</kbd>  |
-|STANDING|<kbd>s</kbd>  |<kbd>l</kbd>  |
-|FRONT   |<kbd>x</kbd>  |<kbd>.</kbd>  |
+|        | UP to LEFT  | UP to RIGHT |
+|--------|:-----------:|:-----------:|
+|BACK    |<kbd>w</kbd> |<kbd>o</kbd> |
+|STANDING|<kbd>s</kbd> |<kbd>l</kbd> |
+|FRONT   |<kbd>x</kbd> |<kbd>.</kbd> |
 
 
-Rotate Left, Middle, Right column from Top to Back/Front (for symmetry, R and U do the same thing, so do V and N).
+Rotate Left, Middle, Right column from FRONT to UP/DOWN (for symmetry, R and U do the same thing, so do V and N).
 
-|            | LEFT       | MIDDLE                     | RIGHT      |
-|------------|:----------:|:--------------------------:|:----------:|
-|TOP to BACK |<kbd>e</kbd>|<kbd>r</kbd> or <kbd>u</kbd>|<kbd>i</kbd>|
-|TOP to FRONT|<kbd>c</kbd>|<kbd>v</kbd> or <kbd>n</kbd>|<kbd>m</kbd>|
+|               | LEFT       | MIDDLE                     | RIGHT      |
+|---------------|:----------:|:--------------------------:|:----------:|
+|FRONT to UP    |<kbd>e</kbd>|<kbd>r</kbd> or <kbd>u</kbd>|<kbd>i</kbd>|
+|FRONT to BOTTOM|<kbd>c</kbd>|<kbd>v</kbd> or <kbd>m</kbd>|<kbd>,</kbd>|
 
 
 #### Rotate The Whole Cube
 
-|     | TOP to                     |
-|----:|:--------------------------:|
-|BACK |<kbd>t</kbd> or <kbd>y</kbd>|
-|FRONT|<kbd>b</kbd> or <kbd>n</kbd>|
+|      | FRONT to                   |
+|-----:|:--------------------------:|
+|UP    |<kbd>t</kbd> or <kbd>y</kbd>|
+|BOTTOM|<kbd>b</kbd> or <kbd>n</kbd>|
 
-|      | LEFT       |RIGHT       |
-|-----:|:----------:|:----------:|
-|TOP to|<kbd>g</kbd>|<kbd>h</kbd>|
+|     | LEFT       |RIGHT       |
+|----:|:----------:|:----------:|
+|UP to|<kbd>g</kbd>|<kbd>h</kbd>|
 
 |        | LEFT       |RIGHT       |
 |-------:|:----------:|:----------:|
