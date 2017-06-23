@@ -69,12 +69,12 @@ Rotate Left, Middle, Right column from Top to Back/Front (for symmetry, R and U 
 
 #### Shuffle, Undo, Redo, etc.
 
-<kbd>?</kbd> (<kbd>SHIFT</kbd><kbd>/</kbd>): toggle help text
-<kbd>SHIFT</kbd><kbd>F</kbd>: shuFfles the cube
-<kbd>SHIFT</kbd><kbd>U</kbd>: Undo
-<kbd>SHIFT</kbd><kbd>R</kbd>: Redo
-<kbd>SHIFT</kbd><kbd>P</kbd>: toggle shortcut Prompts
-<kbd>SHIFT</kbd><kbd>T</kbd>: toggle Timer
+* <kbd>?</kbd> (<kbd>SHIFT</kbd><kbd>/</kbd>): toggle help text
+* <kbd>SHIFT</kbd><kbd>F</kbd>: shuFfles the cube
+* <kbd>SHIFT</kbd><kbd>U</kbd>: Undo
+* <kbd>SHIFT</kbd><kbd>R</kbd>: Redo
+* <kbd>SHIFT</kbd><kbd>P</kbd>: toggle shortcut Prompts
+* <kbd>SHIFT</kbd><kbd>T</kbd>: toggle Timer
 
 ### All tiles are visiable all at once
 
