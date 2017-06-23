@@ -23,6 +23,10 @@ The original Cuber framework was written by the very talented [Stewart Smith](ht
 
 I need fast and intuitive keys, so the original SHIFT is gone, and keys are now symmetric between two hands.
 
+Although this keyboard map might look daunting, but the keys are actually quite intuitive once you figure out how the location of the keys map to the location of the cube slices.
+
+![Keyboard Chart](https://github.com/tsankuanglee/cuber/blob/master/docs/keyboard_chart/keyboard_chart.png)
+
 #### Rotate Slices
 
 Rotate Up, Equator, Down row from Front face to LEFT/Right (notice they are **symmetric** on the standard QWERTY keyboard):
