@@ -45,18 +45,18 @@ Rotate Back, Standing, Front row from UP to LEFT/RIGHT:
 
 Rotate Left, Middle, Right column from FRONT to UP/DOWN (for symmetry, R and U do the same thing, so do V and N).
 
-|               | LEFT       | MIDDLE                     | RIGHT      |
-|---------------|:----------:|:--------------------------:|:----------:|
-|FRONT to UP    |<kbd>e</kbd>|<kbd>r</kbd> or <kbd>u</kbd>|<kbd>i</kbd>|
-|FRONT to BOTTOM|<kbd>c</kbd>|<kbd>v</kbd> or <kbd>m</kbd>|<kbd>,</kbd>|
+|              | LEFT       | MIDDLE                     | RIGHT      |
+|--------------|:----------:|:--------------------------:|:----------:|
+|FRONT to UP   |<kbd>e</kbd>|<kbd>r</kbd> or <kbd>u</kbd>|<kbd>i</kbd>|
+|FRONT to DOWN |<kbd>c</kbd>|<kbd>v</kbd> or <kbd>m</kbd>|<kbd>,</kbd>|
 
 
 #### Rotate The Whole Cube
 
-|      | FRONT to                   |
-|-----:|:--------------------------:|
-|UP    |<kbd>t</kbd> or <kbd>y</kbd>|
-|BOTTOM|<kbd>b</kbd> or <kbd>n</kbd>|
+|    | FRONT to                   |
+|---:|:--------------------------:|
+|UP  |<kbd>t</kbd> or <kbd>y</kbd>|
+|DOWN|<kbd>b</kbd> or <kbd>n</kbd>|
 
 |     | LEFT       |RIGHT       |
 |----:|:----------:|:----------:|
