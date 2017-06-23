@@ -94,6 +94,7 @@ $(document).ready(function() {
     key_toggleKeyPrompts: 'P',
     key_toggleTimer: 'T',
     key_toggleHelp: '?',
+    key_toggleKeyboard: 'C',
     renderer: isIe
       ? ERNO.renderers.IeCSS3D
       : null

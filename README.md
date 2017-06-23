@@ -4,8 +4,7 @@ Expert mode:
 ![Screenshot2](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot2.png)
 
 Beginner mode:
-![Screenshot1](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot1.png)
-
+![Screenshot3](https://github.com/tsankuanglee/cuber/blob/master/docs/screenshots/screenshot3.png)
 
 ## How to run?
 
